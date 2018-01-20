@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="current"></div>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: 36.5524275, lng: 32.0057739};
+
+ var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: new google.maps.LatLng(36.5524275,32.0057739),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+           draggable: true
+        });
+
+         google.maps.event.addListener(marker, 'dragend', function (evt) {
+                document.getElementById('current').innerHTML = '<p>'+map.zoom+' Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+                //console.log( google.maps.event);
+            });
+
+       /* map.addListener('zoom_changed', function() {
+          console.log(map);
+        });*/
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNXaVwWbt9aDjNZBfbHYQz5jCcdMNbPIQ&callback=initMap">
+    </script>
+  </body>
+</html>
